@@ -10,6 +10,8 @@
   "scripts": {
     "start": "HOST=127.0.0.1 react-scripts start",
     "build": "react-scripts build",
+    "build-pwa": "GENERATE_SOURCEMAP=false react-scripts build",
+    "start-pwa": "serve -s build -l 3000",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "develop": "concurrently \"cd server && npm run watch\" \"cd client && npm start\"",
