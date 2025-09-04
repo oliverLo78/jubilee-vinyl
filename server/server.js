@@ -41,6 +41,15 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/build/index.html'));
 });
 
+// Add this before your catch-all route
+app.get('/service-worker.js', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/build/service-worker.js'));
+});
+
+app.get('/manifest.json', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/build/manifest.json'));
+});
+
 // MongoDB error handling
 db.on('error', (err) => {
   console.error('MongoDB connection error:', err);
