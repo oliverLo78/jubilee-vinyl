@@ -7,6 +7,16 @@ const secret = process.env.JWT_SECRET || "fallbacksecret"; // Always have a fall
 const expiration = process.env.JWT_SECRET || "2h";
 
 module.exports = {
+   // Add token to blacklist (for logout functionality)
+  blacklistToken: function (token) {
+    blacklist.add(token);
+  },
+
+  // Check if token is blacklisted
+  isTokenBlacklisted: function (token) {
+    return blacklist.has(token);
+  },
+
   // Authentication middleware for GraphQL context
   authMiddleware: function ({ req }) {
     // Extract token from various locations
@@ -20,6 +30,11 @@ module.exports = {
     // If no token, return request unchanged
     if (!token) {
       return req;
+    }
+     // Check if token is blacklisted
+    if (this.isTokenBlacklisted(token)) {
+      console.log("Blacklisted token attempted use");
+      return req; // Or throw error if preferred
     }
 
     // verify token and attach usert data to request
