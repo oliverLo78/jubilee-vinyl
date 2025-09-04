@@ -1,12 +1,11 @@
 const router = require('express').Router();
-const path = require('path');
-const apiRoutes = require('./api');
+const userRoutes = require('./user-routes');
+// I need this for vinyl orders
+const spotifyRoutes = require('./spotify-routes'); 
+const orderRoutes = require('./order-routes'); 
 
-router.use('/api', apiRoutes);
-
-// serve up react front-end in production
-router.use((req, res) => {
-  res.sendFile(path.join(__dirname, '../../client/build/index.html'));
-});
+router.use('/users', userRoutes);
+router.use('/spotify', spotifyRoutes);
+router.use('/orders', orderRoutes);
 
 module.exports = router;
