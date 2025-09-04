@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const userRoutes = require('./user-routes');
+const userRoutes = require('./api/user-routes');
 // I need this for vinyl orders
 const spotifyRoutes = require('./spotify-routes'); 
 const orderRoutes = require('./order-routes'); 

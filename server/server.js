@@ -21,6 +21,10 @@ const compression = require('compression');
 app.use(helmet());
 app.use(compression());
 
+// Integration for server to use routes
+const routes = require('./routes');
+app.use(routes);
+
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
@@ -41,7 +45,6 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/build/index.html'));
 });
 
-// Add this before your catch-all route
 app.get('/service-worker.js', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/build/service-worker.js'));
 });
