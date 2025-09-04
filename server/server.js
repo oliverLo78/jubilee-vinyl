@@ -7,7 +7,7 @@ const { authMiddleware } = require('./utils/auth');
 
 // Import the two parts of a GraphQL Schema
 const { typeDefs, resolvers } = require('./schemas');
-const db = require('./config/connection');
+const { connectDB } = require('./config/connection');
 
 // For environment variables in development
 require('dotenv').config();
@@ -62,27 +62,21 @@ db.on('error', (err) => {
 const startApolloServer = async (typeDefs, resolvers) => 
   {
     try{
-  await server.start();
-  // Apply  CORS setting if needed
-  server.applyMiddleware({ 
-       app,
-      cors: {
-        origin: process.env.CLIENT_URL || "http://127.0.0.1:3000",
-        credentials: true
-      }
-   });
-  
-    db.once('open', () => {
-      app.listen(PORT, () => {
-        console.log(`API server running on port ${PORT}!`);
-        console.log(`Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`);
-      });
+      // Connect to database first
+       await connectDB();
+    
+    await server.start();
+    server.applyMiddleware({ app });
+    
+    app.listen(PORT, () => {
+      console.log(`🚀 API server running on port ${PORT}!`);
+      console.log(`🔮 GraphQL at http://localhost:${PORT}${server.graphqlPath}`);
     });
   } catch (error) {
-    console.error('Error starting Apollo Server:', error);
+    console.error('❌ Error starting server:', error);
   }
-  };
-  
-  // Call the async function to start the server
-  startApolloServer(typeDefs, resolvers);
+};
+   
+// Call the async function to start the server
+startApolloServer(typeDefs, resolvers);
   
