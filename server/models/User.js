@@ -20,8 +20,6 @@ const userSchema = new Schema(
       required: true,
       minlength: 5
     },
-    
-  },
     // Spotify integration fields
     spotifyId: {
       type: String,
@@ -88,6 +86,7 @@ userSchema.methods.isSpotifyTokenExpired = function () {
   if (!this.spotifyTokenExpiry) return true;
   return Date.now() >= this.spotifyTokenExpiry;
 };
+
 
 const User = model("User", userSchema);
 module.exports = User;
