@@ -15,6 +15,7 @@
     "seed": "cd server && npm run seed",
     "client": "cd client && npm start",
     "server": "cd server && npm run dev",
+     "test-db": "node test-database.js",
     "heroku-postbuild": "npm run install-all && npm run build"
   },
   "keywords": [],
