@@ -42,7 +42,7 @@ const resolvers = {
         const order = await VinylOrder.findById(id).populate("user", "username email");
 
 
-             // Check if order belongs to user
+        // Check if order belongs to user
         if (order.userId.toString() !== context.user._id.toString()) {
           throw new AuthenticationError("Not authorized to view this order");
         }
