@@ -1,126 +1,151 @@
-// import logo from './logo.svg';
-// import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-
-import React, { useEffect, useState } from 'react';
-
-import "bootstrap/dist/css/bootstrap.min.css";
+import React, { useState, useEffect } from 'react';
 import {
   Container,
   InputGroup,
   FormControl,
   Button,
   Row,
+  Col,
   Card,
-} from "react-bootstrap";
-
+  Spinner,
+  Alert
+} from 'react-bootstrap';
+import { useQuery } from '@apollo/client';
+import { SEARCH_SPOTIFY_TRACKS } from '../utils/queries';
+import { useSpotify } from '../utils/SpotifyContext';
 
 function SearchSpotify() {
-  const spotify_client_Id = process.env.REACT_APP_SPOTIFY_CLIENT_ID;
-  const spotify_client_secret = process.env.REACT_APP_SPOTIFY_CLIENT_SECRET;
-  const [accessToken, setAccessToken] = useState("")
-  const [albums, SetAlbums] = useState([]);
-  const authParameters = {
-    method: "POST",
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    },
-    body: 'grant_type=client_credentials&client_id=' + spotify_client_Id + '&client_secret=' + spotify_client_secret
-  }
+  const [searchInput, setSearchInput] = useState('');
+  const [searchExecuted, setSearchExecuted] = useState(false);
+  const { spotifyToken, isPremium, loginToSpotify } = useSpotify();
 
-
-  function ypp() {
-    fetch('https://accounts.spotify.com/api/token', authParameters)
-      .then(result => result.json())
-      .then(data => setAccessToken(data.access_token))
-  }
-
-  useEffect(() => {
-    ypp();
+  const { loading, error, data, refetch } = useQuery(SEARCH_SPOTIFY_TRACKS, {
+    variables: { query: searchInput, limit: 12 },
+    skip: !searchExecuted || !searchInput.trim(),
   });
 
-  // Search function
-  async function search() {
-    console.log("Searching for " + searchInput);
-
-    var searchParameters = {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + accessToken
-      }
+  const handleSearch = () => {
+    if (!searchInput.trim()) return;
+    
+    if (!spotifyToken) {
+      loginToSpotify();
+      return;
     }
-    var artistID = await fetch('https://api.spotify.com/v1/search?q=' + searchInput + '&type=track', searchParameters)
-      .then(response => response.json())
-      .then(data => {
-        console.log(data)
-        return data.tracks.items[0].id
-      })
-    console.log("ID is " + artistID)
 
+    setSearchExecuted(true);
+    refetch({ query: searchInput });
+  };
 
-    var returnedAlbums = await fetch('https://api.spotify.com/v1/tracks/' + artistID, searchParameters)
-      .then(response => response.json())
-      .then(data => {
-        console.log("trackdata", data.name)
-        console.log("URL", data.album.images[0].url);
-        SetAlbums(data);
-      })
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      handleSearch();
+    }
+  };
 
-    var returnedAlbums = await fetch(
-      "https://api.spotify.com/v1/tracks/" + artistID,
-      searchParameters
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("trackdata", data.name);
-        console.log("URL", data.album.images[0].url);
-        SetAlbums(data);
-      });
-  }
-  //  console.log(albums);
-
-  // Page data
-  const [searchInput, setSearchInput] = useState("");
-  return (
-    <div className="App">
-      <Container>
-        <InputGroup className="mb-3" size="lg">
-          <FormControl
-            placeholder="Search for Artist"
-            type="input"
-            onKeyPress={event => {
-              if (event.key == "Enter") {
-                search();
-              }
-            }}
-            onChange={event => setSearchInput(event.target.value)}
-          />
-          <Button onClick={search}>Search Artist</Button>
-        </InputGroup>
+  if (!spotifyToken) {
+    return (
+      <Container className="text-center my-5">
+        <Alert variant="info">
+          <h4>Connect to Spotify</h4>
+          <p>You need to connect your Spotify account to search for tracks</p>
+          <Button onClick={loginToSpotify} variant="primary">
+            Connect Spotify
+          </Button>
+        </Alert>
       </Container>
-      <Container>
-        <Row className="mx-2 row row-cols-4 justify-content-center">
+    );
+  }
 
-          {albums === [] ? (
-            <p>enter your search above</p>
-          ) : (
-            <Card>
-              <Card.Img src={albums?.album?.images[0]?.url} />
-              <Card.Body>
-                <Card.Title>{albums?.name}</Card.Title>
-              </Card.Body>
-            </Card>
+  const tracks = data?.searchSpotifyTracks?.tracks?.items || [];
+
+  return (
+      <Container className="my-5">
+        <Row className="justify-content-center">
+          <Col md={8}>
+            <h2 className="text-center mb-4">Search Spotify Tracks</h2>
+          
+            <InputGroup className="mb-4">
+              <FormControl
+                placeholder="Search for songs, artists, or albums..."
+                value={searchInput}
+                onChange={(e) => setSearchInput(e.target.value)}
+                onKeyPress={handleKeyPress}
+                disabled={loading}
+              />
+            <Button 
+              variant="primary" 
+              onClick={handleSearch}
+              disabled={loading || !searchInput.trim()}
+            >
+              {loading ? <Spinner animation="border" size="sm" /> : 'Search'}
+            </Button>
+          </InputGroup>
+
+          {error && (
+            <Alert variant="danger" className="text-center">
+              Error searching tracks: {error.message}
+            </Alert>
           )}
 
+          {searchExecuted && tracks.length === 0 && !loading && (
+            <Alert variant="info" className="text-center">
+              No tracks found. Try a different search term.
+            </Alert>
+          )}
 
-        </Row>
-      </Container>
-    </div>
+          <Row>
+            {tracks.map((track) => (
+              <Col key={track.id} md={6} lg={4} className="mb-4">
+                <Card className="h-100 track-card">
+                  <Card.Img 
+                    variant="top" 
+                    src={track.album.images[0]?.url || '/default-album.jpg'}
+                    style={{ height: '200px', objectFit: 'cover' }}
+                  />
+                  <Card.Body className="d-flex flex-column">
+                    <Card.Title className="h6" title={track.name}>
+                      {track.name.length > 50 
+                        ? `${track.name.substring(0, 50)}...` 
+                        : track.name
+                      }
+                    </Card.Title>
+                    <Card.Text className="text-muted small">
+                      {track.artists.map(artist => artist.name).join(', ')}
+                    </Card.Text>
+                    <Card.Text className="text-muted small">
+                      {track.album.name}
+                    </Card.Text>
+                    <div className="mt-auto">
+                      {isPremium && track.preview_url && (
+                        <audio 
+                          controls 
+                          className="w-100 mb-2"
+                          src={track.preview_url}
+                        >
+                          Your browser does not support the audio element.
+                        </audio>
+                      )}
+                      <Button 
+                        variant="success" 
+                        size="sm" 
+                        className="w-100"
+                        onClick={() => {
+                          // This will navigate to vinyl creation page
+                          window.location.href = `/create-vinyl/${track.id}`;
+                        }}
+                      >
+                        Create Vinyl
+                      </Button>
+                       </div>
+                  </Card.Body>
+                </Card>
+              </Col>
+            ))}
+          </Row>
+        </Col>
+      </Row>
+    </Container>
   );
 }
-
-
-
 
 export default SearchSpotify;
