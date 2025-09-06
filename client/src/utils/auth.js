@@ -17,6 +17,7 @@ class AuthService {
     // If the expiration time is less than the current time (in seconds), the token is expired and we return `true`
     if (decoded.exp < Date.now() / 1000) {
       localStorage.removeItem('id_token');
+      localStorage.removeItem('spotify_token'); // Also remove Spotify token on expiration
       return true;
     }
     // If token hasn't passed its expiration time, return `false`
@@ -27,6 +28,19 @@ class AuthService {
     return localStorage.getItem('id_token');
   }
 
+  // NEW: Spotify token methods
+  getSpotifyToken() {
+    return localStorage.getItem('spotify_token');
+  }
+
+  setSpotifyToken(token) {
+    localStorage.setItem('spotify_token', token);
+  }
+
+  isSpotifyConnected() {
+    return !!this.getSpotifyToken();
+  }
+
   login(idToken) {
     localStorage.setItem('id_token', idToken);
     window.location.assign('/');
@@ -34,6 +48,7 @@ class AuthService {
 
   logout() {
     localStorage.removeItem('id_token');
+    localStorage.removeItem('spotify_token');
     window.location.reload();
   }
 }
