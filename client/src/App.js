@@ -24,6 +24,7 @@ import Profile from './pages/Profile'; // New profile page
 import Header from './components/Header';
 import Footer from './components/Footer';
 import { SpotifyProvider } from './utils/SpotifyContext'; // For Spotify integration
+import SpotifyCallback from './components/SpotifyCallback';
 
 // Construct our main GraphQL API endpoint
 const httpLink = createHttpLink({
@@ -74,6 +75,7 @@ function App() {
                 <Route path="/create-vinyl/:trackId?" element={<VinylOrder />} />
                 <Route path="/about" element={<About />} />
                 <Route path="*" element={<NotFound />} />
+                <Route path="/spotify-callback" element={<SpotifyCallback />}/>
               </Routes>
             </div>
             <Footer />
