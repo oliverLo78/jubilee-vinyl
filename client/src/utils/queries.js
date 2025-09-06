@@ -6,35 +6,71 @@ export const QUERY_USER = gql`
       _id
       username
       email
-      albums {
+      vinylOrders {
         _id
-        albumTitle
+        trackName
+        artistName
+        vinylColor
+        status
+        orderDate
+        price
+      }
+      favoriteTracks {
+        trackId
+        trackName
+        artistName
+        albumName
+        albumImage
       }
     }
   }
 `;
 
-export const QUERY_ALBUMS = gql`
-  query getAlbums {
-    albums {
+export const QUERY_ORDERS = gql`
+  query getOrders {
+    orders {
       _id
-      albumTitle
-      albumArtist
+      trackName
+      artistName
+      vinylColor
+      vinylSize
+      status
+      price
+      orderDate
+      user {
+        username
+        email
+      }
     }
   }
 `;
 
-export const QUERY_SINGLE_ALBUM = gql`
-  query getSingleAlbum($albumId: ID!) {
-    album(albumId: $albumId) {
+export const QUERY_SINGLE_ORDER = gql`
+  query getSingleOrder($orderId: ID!) {
+    order(orderId: $orderId) {
       _id
-      albumTitle
-      albumArtist
-      albumDescription
-      songs {
+      trackName
+      artistName
+      albumName
+      albumImage
+      previewUrl
+      vinylColor
+      vinylSize
+      status
+      price
+      orderDate
+      estimatedDelivery
+      shippingAddress {
+        street
+        city
+        state
+        zipCode
+        country
+      }
+      user {
         _id
-        songTitle
-        songArtist
+        username
+        email
       }
     }
   }
@@ -46,11 +82,82 @@ export const QUERY_ME = gql`
       _id
       username
       email
-      albums {
+      spotifyId
+      vinylOrders {
         _id
-        albumTitle
-        albumArtist
+        trackName
+        artistName
+        albumImage
+        vinylColor
+        vinylSize
+        status
+        price
+        orderDate
+      }
+      favoriteTracks {
+        trackId
+        trackName
+        artistName
+        albumName
+        albumImage
       }
     }
   }
 `;
+
+export const QUERY_SPOTIFY_PROFILE = gql`
+  query spotifyProfile {
+    spotifyProfile {
+      id
+      display_name
+      email
+      product # This tells us if user has Spotify Premium
+      images {
+        url
+      }
+    }
+  }
+`;
+
+export const SEARCH_SPOTIFY_TRACKS = gql`
+  query searchSpotifyTracks($query: String!, $type: String = "track", $limit: Int = 20) {
+    searchSpotifyTracks(query: $query, type: $type, limit: $limit) {
+      tracks {
+        items {
+          id
+          name
+          artists {
+            name
+          }
+          album {
+            name
+            images {
+              url
+            }
+          }
+          duration_ms
+          preview_url
+        }
+      }
+    }
+  }
+`;
+
+export const QUERY_USER_PLAYLISTS = gql`
+  query getUserPlaylists {
+    getUserPlaylists {
+      items {
+        id
+        name
+        description
+        images {
+          url
+        }
+        tracks {
+          total
+        }
+      }
+    }
+  }
+`;
+
