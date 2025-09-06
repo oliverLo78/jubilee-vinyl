@@ -113,7 +113,21 @@ type VinylOrder {
     shippingAddress: ShippingAddressInput
   }
 
-input TrackInput {
+  input VinylOrderInput {
+    trackId: String!
+    trackName: String!
+    artistName: String!
+    albumName: String
+    albumImage: String
+    previewUrl: String
+    durationMs: Int
+    vinylColor: String!
+    vinylSize: String!
+    price: Float!
+    shippingAddress: ShippingAddressInput
+}
+
+  input TrackInput {
     trackId: String!
     trackName: String!
     artistName: String!
@@ -121,12 +135,11 @@ input TrackInput {
     albumImage: String
   }
 
-    input ShippingAddressInput {
-    street: String
-    city: String
-    state: String
-    zipCode: String
-    country: String
+  input ShippingAddressInput {
+    street: String!
+    city: String!
+    state: String!
+    zipCode: String!
   }
 `;
 
