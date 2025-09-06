@@ -34,14 +34,14 @@ const httpLink = createHttpLink({
 
 // Construct request middleware that will attach the JWT token to every request
 const authLink = setContext((_, { headers }) => {
-  const token = localStorage.getItem('id_token');
-  const spotifyToken = localStorage.getItem('spotify_token'); // For Spotify API calls
+  const token = AuthService.getToken();
+  const spotifyToken = AuthService.getSpotifyToken(); // For Spotify API calls
 
   return {
     headers: {
       ...headers,
       authorization: token ? `Bearer ${token}` : '',
-      'spotify-authorization': spotifyToken ? `Bearer ${spotifyToken}` : '',
+      ...(spotifyToken && { 'spotify-authorization': `Bearer ${spotifyToken}`}),
     },
   };
 });
