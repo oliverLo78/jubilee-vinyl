@@ -1,49 +1,81 @@
 import React from 'react';
-import { useQuery } from '@apollo/client';
-import Button from 'react-bootstrap/Button';
+import { Button, Container, Row, Col } from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
 import './Home.css';
 
-// import AlbumList from '../components/AlbumList';
-import AlbumForm from '../components/AlbumForm';
-
-import { QUERY_ALBUMS } from '../utils/queries';
-
 const Home = () => {
-  const { loading, data } = useQuery(QUERY_ALBUMS);
-
-  // Assign data if data exist then grab album or define albums as empty array
-  const albums = data?.albums || [];
-
-  return (
-    <div>
-      <img className='img1' src='/pexels-matthias-groeneveld-3916058.jpg' height={420}></img>
-      <h1 className='textover'>Design your Custom Vinyl today!</h1>
-      <Button id='button1' href='signup' variant="primary">Get Started</Button>{' '}
-      <img className='img1' src='/vinyll.jpg' height={420}></img>
-      <p> We're a small team of devs who thought it would be a cool idea to make a custom set of songs in tangible form! Little did we know, this idea wasn't original and already available. But we figured we would still try anyways and aim for a marlet the other sites haven't. You can easily pay a starting of 100 USD for a custom vinyl; but for us, we stick to the basics and offer a price that reflects that! Balling on a budget as they say!</p>
-      {/* <div className="flex-row justify-center">
-        <div
-          className="col-12 col-md-10 mb-3 p-3"
-          style={{ border: '1px dotted #1a1a1a' }}
-        >
-          <AlbumForm />
+   return (
+    <div className="home-container">
+      {/* Hero Section */}
+      <div className="hero-section position-relative">
+        <img 
+          className='hero-image w-100' 
+          src='/pexels-matthias-groeneveld-3916058.jpg' 
+          alt='Vinyl record and equipment'
+          style={{ height: '500px', objectFit: 'cover' }}
+        />
+        <div className="hero-overlay position-absolute top-50 start-50 translate-middle text-center text-white">
+          <h1 className='hero-title display-4 fw-bold mb-4'>
+            Design Your Custom Vinyl Today!
+          </h1>
+          <LinkContainer to="/search">
+            <Button variant="primary" size="lg" className='hero-btn'>
+              Get Started
+            </Button>
+          </LinkContainer>
         </div>
-        <div className="col-12 col-md-8 mb-3">
-          {loading ? (
-            <div>Loading...</div>
-          ) : (
-            <albumList
-              albums={albums}
-              title="Some Feed for Album(s)..."
+      </div>
+      
+      {/* About Section */}
+      <Container className='my-5'>
+        <Row className='align-items-center'>
+          <Col md={6}>
+            <img 
+              className='img-fluid rounded shadow'
+              src='/vinyll.jpg' 
+              alt='Custom vinyl design'
+              style={{ height: '300px', objectFit: 'cover', width: '100%' }}
             />
-          )}
-     
-          
-        </div>
-      </div> */}
+          </Col>
+          <Col md={6}>
+            <h2 className='mb-4'>About Jubilee</h2>
+            <p className='lead'>
+              We're a small team of developers who believe everyone should have access to 
+              affordable custom vinyl records. While others charge $100+ per vinyl, we've 
+              streamlined the process to offer quality custom pressings at a fraction of the cost.
+            </p>
+            <p>
+              Balling on a budget? We get it. That's why we've made it our mission to make 
+              custom vinyl accessible without compromising on quality or creativity.
+            </p>
+            <LinkContainer to="/about">
+              <Button variant="outline-primary">Learn More</Button>
+            </LinkContainer>
+          </Col>
+        </Row>
+      </Container>
 
+      {/* Features Section */}
+      <Container fluid className='bg-light py-5'>
+        <Row className='text-center'>
+          <Col md={4} className='mb-4'>
+            <div className='feature-icon mb-3'>🎵</div>
+            <h4>Spotify Integration</h4>
+            <p>Create vinyl from your favorite Spotify tracks instantly</p>
+          </Col>
+          <Col md={4} className='mb-4'>
+            <div className='feature-icon mb-3'>🎨</div>
+            <h4>Custom Designs</h4>
+            <p>Choose colors, sizes, and create unique vinyl artwork</p>
+          </Col>
+          <Col md={4} className='mb-4'>
+            <div className='feature-icon mb-3'>🚚</div>
+            <h4>Fast Shipping</h4>
+            <p>Get your custom vinyl delivered to your doorstep</p>
+          </Col>
+        </Row>
+      </Container>
     </div>
-
   );
 };
 
