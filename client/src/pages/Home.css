@@ -10,13 +10,25 @@
     padding: 15px;
 }
 
-#button1 {
-    margin-top: 27vh;
-    padding: 15px;
-    font-size: 27px;
-    /* display: flex; */
-    /* justify-content: center; */
-    margin-left: 40vw;
-    margin-bottom: 15vh;
-    
+.hero-section {
+  position: relative;
+}
+
+.hero-overlay {
+  background: rgba(0, 0, 0, 0.5);
+  padding: 2rem;
+  border-radius: 10px;
+}
+
+.track-card {
+  transition: transform 0.2s;
+}
+
+.track-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.feature-icon {
+  font-size: 3rem;
 }

@@ -70,6 +70,8 @@ function App() {
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/profile" element={<Profile />} />
+                <Route path="/search" element={<SearchSpotify />} />
+                <Route path="/create-vinyl/:trackId" element={<CreateVinyl />} />
                 <Route path="/orders" element={<OrderHistory />} />
                 <Route path="/order/:orderId" element={<VinylDetail />} />
                 <Route path="/create-vinyl/:trackId?" element={<VinylOrder />} />
