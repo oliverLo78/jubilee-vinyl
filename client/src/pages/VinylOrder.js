@@ -1,12 +1,13 @@
 import { useMutation } from '@apollo/client';
 import { CREATE_VINYL_ORDER } from '../utils/mutations';
 
-function VinylOrderForm() {
+const VinylOrder = () => { 
+// function VinylOrderForm() {
   const [createOrder, { loading, error }] = useMutation(CREATE_VINYL_ORDER);
 
-  const handleSubmit = async (orderData) => {
+  // const handleSubmit = async (orderData) => {
     try {
-      const { data } = await createOrder({
+      const { data } = createOrder({
         variables: {
           input: {
             trackId: orderData.trackId,
@@ -24,4 +25,7 @@ function VinylOrderForm() {
       console.error('Order creation failed:', err);
     }
   };
-}
+
+   return <div>Vinyl Order Page</div>;
+
+export default VinylOrder;
