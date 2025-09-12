@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useLocation } from "react-router-dom";
 import { Link, useParams } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import { Form, Button, Card, Row, Col, Alert } from "react-bootstrap";  
@@ -9,10 +10,63 @@ import Auth from "../../utils/auth";
 import { useSpotify } from "../../utils/SpotifyContext";
 
 const VinylOrderForm = () => {
-  const { trackId } = useParams(); // Get trackId from URL if coming from search
-  const { spotifyToken } = useSpotify();
+  const location = useLocation();
+  const trackData = location.state?.trackData;
+  
+
+  if (!trackData) {
+    return (
+      <Alert variant="warning" className="text-center">
+        <h4>No Track Selected</h4>
+        <p>Please go back to search and select a track to create a vinyl.</p>
+        <Link to="/search" className="btn btn-primary">
+          Back to Search
+        </Link>
+      </Alert>
+    );
+  }
+
+   return (
+    <div>
+      {/* Track Preview Section */}
+      <Card className="mb-4">
+        <Card.Header>
+          <h5>Selected Track</h5>
+        </Card.Header>
+        <Card.Body>
+          <Row className="align-items-center">
+            <Col md={3}>
+              <img 
+                src={trackData.image} 
+                alt={trackData.name}
+                className="img-fluid rounded"
+                style={{ width: '100px', height: '100px', objectFit: 'cover' }}
+              />
+            </Col>
+            <Col md={9}>
+              <h6>{trackData.name}</h6>
+              <p className="text-muted mb-1">by {trackData.artist}</p>
+              <p className="text-muted small">from {trackData.album}</p>
+              {trackData.previewUrl && (
+                <audio controls src={trackData.previewUrl} className="w-100">
+                  Your browser does not support audio preview.
+                </audio>
+              )}
+            </Col>
+          </Row>
+        </Card.Body>
+      </Card>
+    </div>
+  );
+};
       
       const [formState, setFormState] = useState({
+        trackId: trackData?.id || '',
+        trackName: trackData?.name || '',
+        artistName: trackData?.artist || '',
+        albumImage: trackData?.image || '',
+        albumName: trackData?.album || '',
+        previewUrl: trackData?.previewUrl || '',
         vinylColor: 'black',
         vinylSize: '12inch',
         shippingAddress: {
@@ -23,7 +77,7 @@ const VinylOrderForm = () => {
           country: 'US'
         }
       });
-
+    
       const [createVinylOrder, { error, loading }] = useMutation(CREATE_VINYL_ORDER, {
         update(cache, { data: { createVinylOrder } }) {
           try {

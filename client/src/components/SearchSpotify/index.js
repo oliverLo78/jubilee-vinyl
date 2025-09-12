@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
 import {
   Container,
   InputGroup,
@@ -24,6 +25,8 @@ function SearchSpotify() {
     variables: { query: searchInput, limit: 12 },
     skip: !searchExecuted || !searchInput.trim(),
   });
+
+  const navigate = useNavigate();
 
   const handleSearch = () => {
     if (!searchInput.trim()) return;
@@ -131,12 +134,23 @@ function SearchSpotify() {
                         size="sm" 
                         className="w-100"
                         onClick={() => {
-                          // This will navigate to vinyl creation page
-                          window.location.href = `/create-vinyl/${track.id}`;
+                          navigate('/create-vinyl', { 
+                            state: { 
+                              trackData: {
+                                id: track.id,
+                                name: track.name,
+                                artist: track.artists[0].name,
+                                image: track.album.images[0]?.url,
+                                album: track.album.name,
+                                previewUrl: track.preview_url
+                              }
+                            }
+                          });
                         }}
                       >
                         Create Vinyl
                       </Button>
+
                        </div>
                   </Card.Body>
                 </Card>
