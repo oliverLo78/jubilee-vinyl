@@ -13,6 +13,7 @@ import {
 import { useQuery } from '@apollo/client';
 import { SEARCH_SPOTIFY_TRACKS } from '../utils/queries';
 import { useSpotify } from '../utils/SpotifyContext';
+import { VinylOrderForm } from '../VinylOrderForm/index.js'
 
 function SearchSpotify() {
   const [searchInput, setSearchInput] = useState('');

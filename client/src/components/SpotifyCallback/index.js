@@ -1,7 +1,7 @@
 // components/SpotifyCallback.js
 import { useEffect } from 'react';
 import { useSpotify } from '../utils/SpotifyContext';
-import AuthService from '../utils/auth'
+import AuthService from '../utils/auth';
 
 const SpotifyCallback = () => {
   const { setSpotifyToken } = useSpotify();
