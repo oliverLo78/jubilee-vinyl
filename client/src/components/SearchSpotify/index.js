@@ -129,7 +129,7 @@ function SearchSpotify() {
                           Your browser does not support the audio element.
                         </audio>
                       )}
-                        
+                      {/*display Spotify track info */}
                       {tracks.map(track => (
                         <TrackSelector 
                           key={track.id} 

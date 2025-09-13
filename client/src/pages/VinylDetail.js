@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 
 import SongList from '../components/SongList';
-import SongForm from '../components/SongForm';
+import TrackSelector from '../components/TrackSelector';
 
 import { QUERY_SINGLE_ALBUM } from '../utils/queries';
 import SearchSpotify from '../components/SearchSpotify';
