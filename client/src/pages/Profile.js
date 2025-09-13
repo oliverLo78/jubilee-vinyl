@@ -9,7 +9,7 @@ import Auth from '../utils/auth';
 const Profile = () => {
   const { loading, data } = useQuery( QUERY_ME);
   const user = data?.me || {};
-  
+  // better loading states
   if (loading)
 
   return (
@@ -43,7 +43,7 @@ const Profile = () => {
                   </Badge>
                 )}
               </div>
-
+              {/*Responsive grid system*/}
               <div className="d-flex justify-content-center gap-3">
                 <Button variant="primary" href="/search">
                   Create New Vinyl
@@ -55,7 +55,7 @@ const Profile = () => {
             </Card.Body>
           </Card>
 
-          {/* Stats Overview */}
+          {/* Stats Overview cards for oders*/}
           <Row className="mb-4">
             <Col md={4} className="mb-3">
               <Card className="text-center h-100">
