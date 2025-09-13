@@ -129,6 +129,17 @@ function SearchSpotify() {
                           Your browser does not support the audio element.
                         </audio>
                       )}
+                        
+                      {tracks.map(track => (
+                        <TrackSelector 
+                          key={track.id} 
+                          track={track}
+                          onTrackAdded={() => {
+                            // Refresh favorites list or show confirmation
+                            console.log('Track added to favorites!');
+                          }}
+                        />
+                      ))}
                       <Button 
                         variant="success" 
                         size="sm" 
