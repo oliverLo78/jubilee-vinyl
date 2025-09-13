@@ -336,7 +336,6 @@ const VinylOrderForm = () => {
       </Form>
     </div>
   );
-};
 
 export default VinylOrderForm;
 

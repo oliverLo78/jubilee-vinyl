@@ -12,8 +12,8 @@ import {
   Alert
 } from 'react-bootstrap';
 import { useQuery } from '@apollo/client';
-import { SEARCH_SPOTIFY_TRACKS } from '../utils/queries';
-import { useSpotify } from '../utils/SpotifyContext';
+import { SEARCH_SPOTIFY_TRACKS } from '../../utils/queries';
+import { useSpotify } from '../../utils/SpotifyContext';
 import { VinylOrderForm } from '../VinylOrderForm/index.js'
 
 function SearchSpotify() {
