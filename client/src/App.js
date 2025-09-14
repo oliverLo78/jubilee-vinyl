@@ -14,12 +14,12 @@ import Signup from './pages/Signup';
 import Login from './pages/Login';
 import VinylOrderForm from './pages/VinylOrder'; // Renamed for clarity
 import OrderHistory from './pages/OrderHistory';
-import VinylOrderDetail from './pages/VinylDetail'; // Renamed from SingleAlbum
+import VinylOrderDetail from './pages/VinylOrderDetail'; // Renamed from SingleAlbum
 import NotFound from './pages/NotFound';
 import About from './pages/About';
 import Profile from './pages/Profile';
-import SearchSpotify from './pages/SearchSpotify'; // Added missing import
-import CreateVinyl from './pages/CreateVinyl'; // Added missing import
+import SearchSpotify from './components/SearchSpotify'; // Added missing import
+import CreateVinyl from './components/VinylOrderForm'; // Added missing import
 
 // Components
 import Header from './components/Header';

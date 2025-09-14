@@ -1,13 +1,13 @@
+import React from 'react';
 import { useMutation } from '@apollo/client';
 import { CREATE_VINYL_ORDER } from '../utils/mutations';
 
-const VinylOrder = () => { 
-// function VinylOrderForm() {
+const VinylOrder = () => {
   const [createOrder, { loading, error }] = useMutation(CREATE_VINYL_ORDER);
 
-  // const handleSubmit = async (orderData) => {
-    try {
-      const { data } = createOrder({
+  const handleSubmit = async (orderData) => {
+         try {
+      const { data } = await createOrder({
         variables: {
           input: {
             trackId: orderData.trackId,
@@ -15,7 +15,7 @@ const VinylOrder = () => {
             artistName: orderData.artistName,
             vinylColor: orderData.color,
             vinylSize: orderData.size,
-            price: 29.99, // Your pricing logic
+            price: 29.99,
             // ... other fields
           }
         }
@@ -27,5 +27,6 @@ const VinylOrder = () => {
   };
 
    return <div>Vinyl Order Page</div>;
+};
 
 export default VinylOrder;

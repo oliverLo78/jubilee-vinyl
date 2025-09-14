@@ -7,13 +7,12 @@ import VinylOrderList from '../components/VinylOrderList';
 import Auth from '../utils/auth';
 
 const Profile = () => {
-  const { loading, data } = useQuery( QUERY_ME);
+  const { loading, data } = useQuery(QUERY_ME);
   const user = data?.me || {};
-  // better loading states
-  if (loading)
 
-  return (
-    <Container className="text-center py-5">
+  if (loading) {
+    return (
+      <Container className="text-center py-5">
         <div className="spinner-border text-primary" role="status">
           <span className="visually-hidden">Loading...</span>
         </div>
@@ -25,7 +24,7 @@ const Profile = () => {
   // Redirect to login if not authenticated
   if (!Auth.loggedIn()) {
     return <Navigate to="/login" replace />;
-  }
+  };
 
   return (
     <Container className="py-5">
@@ -43,7 +42,7 @@ const Profile = () => {
                   </Badge>
                 )}
               </div>
-              {/*Responsive grid system*/}
+              
               <div className="d-flex justify-content-center gap-3">
                 <Button variant="primary" href="/search">
                   Create New Vinyl
@@ -55,7 +54,7 @@ const Profile = () => {
             </Card.Body>
           </Card>
 
-          {/* Stats Overview cards for oders*/}
+          {/* Stats Overview */}
           <Row className="mb-4">
             <Col md={4} className="mb-3">
               <Card className="text-center h-100">
@@ -91,7 +90,7 @@ const Profile = () => {
             </Col>
           </Row>
 
-            {/* Vinyl Orders Section */}
+          {/* Vinyl Orders Section */}
           <Card className="shadow-sm">
             <Card.Header className="bg-light">
               <h3 className="mb-0">Your Vinyl Orders</h3>
@@ -119,7 +118,7 @@ const Profile = () => {
             </Card.Body>
           </Card>
 
-          {/* Favorites Section (Optional) */}
+          {/* Favorites Section */}
           {user.favoriteTracks && user.favoriteTracks.length > 0 && (
             <Card className="mt-4 shadow-sm">
               <Card.Header className="bg-light">
@@ -167,5 +166,6 @@ const Profile = () => {
       </Row>
     </Container>
   );
+};
 
 export default Profile;
