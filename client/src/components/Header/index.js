@@ -8,9 +8,8 @@ import "./header.css";
 import {
   HomeIcon, 
   LibraryIcon,
-   PlusCircleIcon,
+  PlusCircleIcon,
 } from "@heroicons/react/outline";
-
 import Auth from "../../utils/auth";
 
 const Header = () => {
@@ -18,30 +17,68 @@ const Header = () => {
     event.preventDefault();
     Auth.logout();
   };
+
   return (
-    <>
-      <Navbar bg="dark" variant="dark">
-        <Container>
-          <Navbar.Brand href="/">
-            <img id="img" src="/logo407.jpg" height={60}></img>
-            Jubilee
-          </Navbar.Brand>
-          <Nav className="">
-            <HomeIcon />
-            <Nav.Link href="/">Home</Nav.Link> 
-            <PlusCircleIcon />
-            <Nav.Link href="/albums/:albumId">Make Vynl Record</Nav.Link>
-            <LibraryIcon />
-            <Nav.Link href="/about">About Us</Nav.Link>
+    <Navbar expand="lg" className="jubilee-header">
+      <Container>
+        <Navbar.Brand href="/" className="jubilee-brand">
+          <img id="img" src="/icon-192x192.png" height={50} className="me-2" />
+          🎵 Jubilee
+        </Navbar.Brand>
+        
+        <Navbar.Toggle aria-controls="basic-navbar-nav" className="jubilee-toggler" />
+        
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="me-auto">
+            <Nav.Link href="/" className="jubilee-nav-link">
+              <HomeIcon className="jubilee-icon home-icon" />
+              Home
+            </Nav.Link>
+
+            <Nav.Link href="/create-vinyl" className="jubilee-nav-link">
+              <PlusCircleIcon className="jubilee-icon plus-icon" />
+              Make Vinyl Record
+            </Nav.Link>
+            
+            <Nav.Link href="/about" className="jubilee-nav-link">
+              <LibraryIcon className="jubilee-icon library-icon" />
+              About Us
+            </Nav.Link>
           </Nav>
-          <Button href="login" className="me-3" variant="light">
-            Login
-          </Button>{" "}
-          {/* <Button href='signup' variant="light">Sign Up</Button>{' '} */}
-        </Container>
-      </Navbar>
-    </>
+
+           <Nav>
+            {Auth.loggedIn() ? (
+              <>
+                <Nav.Link href="/profile" className="jubilee-nav-link">
+                  Profile
+                </Nav.Link>
+                <Button 
+                  onClick={logout} 
+                  className="jubilee-auth-btn"
+                >
+                  Logout
+                </Button>
+              </>
+             ) : (
+              <>
+                <Button href="/login" className="jubilee-auth-btn me-2">
+                  Login
+                </Button>
+                <Button href="/signup" className="jubilee-auth-btn">
+                  Sign Up
+                </Button>
+              </>
+            )}
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
   );
 };
 
 export default Header;
+
+  
+   
+
+
