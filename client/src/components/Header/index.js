@@ -11,6 +11,7 @@ import {
   PlusCircleIcon,
 } from "@heroicons/react/outline";
 import Auth from "../../utils/auth";
+import { LinkContainer } from 'react-router-bootstrap';
 
 const Header = () => {
   const logout = (event) => {
@@ -29,11 +30,13 @@ const Header = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" className="jubilee-toggler" />
         
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto">
-            <Nav.Link href="/" className="jubilee-nav-link">
-              <HomeIcon className="jubilee-icon home-icon" />
-              Home
-            </Nav.Link>
+          <Nav className="mx-auto">
+            <LinkContainer to="/">
+              <Nav.Link className="jubilee-nav-link">
+                <HomeIcon className="jubilee-icon home-icon" />
+                Home
+              </Nav.Link>
+            </LinkContainer>
 
             <Nav.Link href="/create-vinyl" className="jubilee-nav-link">
               <PlusCircleIcon className="jubilee-icon plus-icon" />
