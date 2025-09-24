@@ -68,7 +68,7 @@ function App() {
         <Router>
           <div className="flex-column justify-flex-start min-100-vh">
             <Header />
-            <div className="container">
+            <div className="container flex-grow 1">
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/login" element={<Login />} />

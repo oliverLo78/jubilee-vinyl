@@ -1,0 +1,166 @@
+/* Footer.css - Matching Header Theme */
+.jubilee-footer {
+  background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%) !important;
+  border-top: 3px solid #ffd700 !important;
+  color: #ffffff;
+  padding: 2rem 0 1rem;
+  margin-top: auto;
+}
+
+.footer-brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  justify-content: flex-start;
+  margin-bottom: 1rem;
+}
+
+.brand-text {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.footer-tagline {
+  color: #bdc3c7;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+/* Social Icons */
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.social-icon {
+  color: #ffffff !important;
+  width: 45px;
+  height: 45px;
+  border: 2px solid #ffd700;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.social-icon:hover {
+  color: #2c3e50 !important;
+  background-color: #ffd700;
+  transform: translateY(-3px) scale(1.1);
+  box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+}
+
+.icon-size {
+  width: 20px;
+  height: 20px;
+}
+
+/* Footer Links */
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.footer-link {
+  color: #bdc3c7 !important;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.footer-link:hover {
+  color: #ffd700 !important;
+  transform: translateY(-1px);
+}
+
+.footer-link::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -2px;
+  left: 0;
+  background-color: #ffd700;
+  transition: width 0.3s ease;
+}
+
+.footer-link:hover::after {
+  width: 100%;
+}
+
+/* Contact Info */
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  color: #bdc3c7;
+  font-size: 0.9rem;
+}
+
+/* Footer Bottom */
+.footer-bottom {
+  border-top: 1px solid #4a6572;
+  padding-top: 1rem;
+  margin-top: 1rem;
+}
+
+.footer-bottom p {
+  color: #95a5a6;
+  font-size: 0.8rem;
+  margin: 0;
+}
+
+/* Mobile Responsive */
+@media (max-width: 992px) {
+  .footer-brand {
+    justify-content: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  .contact-info {
+    align-items: center;
+    margin-top: 1rem;
+  }
+  
+  .contact-item {
+    justify-content: center;
+  }
+  
+  .footer-links {
+    gap: 1rem;
+  }
+  
+  .social-icons {
+    gap: 1rem;
+  }
+}
+
+/* Animation for music note */
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+.music-note {
+  animation: bounce 2s infinite;
+}
+
+/* Hover effect for brand */
+.footer-brand:hover .brand-text {
+  color: #ffd700;
+  transition: color 0.3s ease;
+}

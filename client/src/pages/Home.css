@@ -1,34 +1,10 @@
-/* .img1 {
-    width: 100%;
+/* In your main CSS file */
+.min-100-vh {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
-.textover {
-    margin-top: -15vh;
-    display: flex;
-    justify-content: center;
-    color: white;
-    padding: 15px;
+.flex-grow-1 {
+  flex-grow: 1;
 }
-
-.hero-section {
-  position: relative;
-}
-
-.hero-overlay {
-  background: rgba(0, 0, 0, 0.5);
-  padding: 2rem;
-  border-radius: 10px;
-}
-
-.track-card {
-  transition: transform 0.2s;
-}
-
-.track-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-}
-
-.feature-icon {
-  font-size: 3rem;
-} */
