@@ -72,18 +72,13 @@
 /* Icons - Fixed Size */
 .jubilee-icon {
   color: #ffffff !important;
-  width: 20px !important;  /* Fixed size */
-  height: 20px !important; /* Fixed size */
-  margin-right: 0.5rem;
+  width: 16px !important; /* Font Awesome icons don't need width/height */
   transition: all 0.3s ease;
-  padding: 0.3rem;
-  border-radius: 50%;
 }
 
 .jubilee-icon:hover {
   color: #2c3e50 !important;
-  background-color: #ffd700 !important;
-  transform: (1.1);
+  transform: (1.2);
 }
 
 /* Auth Buttons - Right Side */

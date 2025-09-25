@@ -11,7 +11,7 @@ import {
   Spinner,
   Alert
 } from 'react-bootstrap';
-import { useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client/react';
 import { SEARCH_SPOTIFY_TRACKS } from '../../utils/queries';
 import { useSpotify } from '../../utils/SpotifyContext';
 import { VinylOrderForm } from '../VinylOrderForm/index.js'
