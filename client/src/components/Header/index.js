@@ -23,11 +23,8 @@ const Header = () => {
       <Container>
         <Navbar.Brand href="/" className="jubilee-brand">
           <FontAwesomeIcon icon={faRecordVinyl} className="me-2" /> 
-
             🎵 Jubilee
         </Navbar.Brand>
-        
-        <Navbar.Toggle aria-controls="basic-navbar-nav" className="jubilee-toggler" />
         
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mx-auto">

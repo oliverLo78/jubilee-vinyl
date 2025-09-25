@@ -12,7 +12,7 @@ const Home = () => {
           className='hero-image w-100' 
           src='/pexels-matthias-groeneveld-3916058.jpg' 
           alt='Vinyl record and equipment'
-          style={{ height: '500px', objectFit: 'cover' }}
+          style={{ display: 'flex' }}
         />
         <div className="hero-overlay position-absolute top-50 start-50 translate-middle text-center text-white">
           <h1 className='hero-title display-4 fw-bold mb-4'>
