@@ -1,9 +1,9 @@
 // client/src/components/Customizer/Customizer.js
 import React, { useState, useEffect, useRef } from 'react';
-import { fabric } from 'fabric';
+import * as fabric from 'fabric';
 import { Container, Row, Col, Card, Button, Form, Alert } from 'react-bootstrap';
 import axios from 'axios';
-import './Customizer.css'
+import './customizer.css'
 
 const Customizer = ({ trackData }) => {
 const canvasRef = useRef(null);
@@ -32,8 +32,6 @@ useEffect(() => {
 
   // Create vinyl template (circle with center hole)
   createVinylTemplate(canvas);
-
-  
 
   // Clean up on component unmount
   return () => canvas.dispose();   

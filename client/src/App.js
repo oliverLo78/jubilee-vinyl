@@ -25,7 +25,7 @@ import CreateVinyl from './components/VinylOrderForm'; // Added missing import
 import Header from './components/Header';
 import Footer from './components/Footer';
 import SpotifyCallback from './components/SpotifyCallback';
-import Customizer from './components/Customizer/Customizer';
+import Customizer from './components/Customizer';
 
 // Utils
 import { SpotifyProvider } from './utils/SpotifyContext';
