@@ -25,6 +25,7 @@ import CreateVinyl from './components/VinylOrderForm'; // Added missing import
 import Header from './components/Header';
 import Footer from './components/Footer';
 import SpotifyCallback from './components/SpotifyCallback';
+import Customizer from './components/Customizer/Customizer';
 
 // Utils
 import { SpotifyProvider } from './utils/SpotifyContext';
@@ -61,6 +62,17 @@ const client = new ApolloClient({
   },
 });
 
+const CustomizerPage = () => {
+  const location = useLocation();
+  const trackData = location.state?.trackData;
+
+  return (
+    <div>
+      <Customizer trackData={trackData} />
+    </div>
+  );
+};
+
 function App() {
   return (
     <ApolloProvider client={client}>
@@ -79,12 +91,13 @@ function App() {
                 <Route path="/vinyl-order" element={<VinylOrderForm />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/spotify-callback" element={<SpotifyCallback />} />
+                <Route path="/customize/:trackId?" element={<CustomizerPage />} />
                 <Route path="*" element={<NotFound />} />
                 {/* <Route path="/create-vinyl" element={<CreateVinyl />} />
                 <Route path="/create-vinyl/:trackId" element={<CreateVinyl />} />
                 <Route path="/orders" element={<OrderHistory />} /> */}
               </Routes>
-            </div>
+            </div>  
             <Footer />
           </div>
         </Router>
