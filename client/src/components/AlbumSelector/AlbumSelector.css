@@ -1,8 +1,36 @@
-.album-selector-container {
-  padding: 2rem 0;
-  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
-  color: white;
-  min-height: 100vh;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+body {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    color: #fff;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Fixed Album Selector Styles */
+.album-selector {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Center the cards horizontally */
+    gap: 25px;
+    margin: 0 auto;
+    max-width: 1000px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 40px;
 }
 
 .selector-header {
@@ -29,6 +57,23 @@
   justify-content: center;
 }
 
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    background: linear-gradient(90deg, #ff8a00, #e52e71);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.description {
+    color: #a0a0c0;
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0 auto 30px;
+    line-height: 1.6;
+}
+
 .scroll-container {
   position: relative;
   display: flex;
@@ -51,20 +96,28 @@ albums-scroll {
 }
 
 .album-card {
-  width: 200px;
-  flex-shrink: 0;
-  background: #2c3e50;
-  border: 2px solid transparent;
-  border-radius: 15px;
-  transition: all 0.3s ease;
-  cursor: pointer;
-  color: white;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 20px;
+    width: 280px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .album-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-8px);
+  background: rgba(255, 255, 255, 0.12);
   border-color: #ffd700;
-  box-shadow: 0 10px 25px rgba(255, 215, 0, 0.3);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+}
+
+.album-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
 }
 
 .album-card.selected {
@@ -80,13 +133,46 @@ albums-scroll {
 }
 
 .album-title {
-  font-size: 1rem;
-  font-weight: bold;
+  font-size: 1.3rem;
+  font-weight: 600;
   margin-bottom: 0.5rem;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+.album-badge {
+    background: linear-gradient(90deg, #ff8a00, #e52e71);
+    color: white;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.album-content {
+    margin-bottom: 15px;
+}
+
+.album-name {
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+.album-category {
+    color: #a0a0c0;
+    font-size: 0.9rem;
+}
+
+.album-stats {
+    display: flex;
+    justify-content: space-between;
+    color: #a0a0c0;
+    font-size: 0.9rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 15px;
+        }
 
 .album-artist {
   color: #bdc3c7;
@@ -149,10 +235,23 @@ albums-scroll {
   margin-bottom: 0.5rem;
 }
 
+.footer {
+    text-align: center;
+    margin-top: 50px;
+    color: #a0a0c0;
+    font-size: 0.9rem;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
+  .album-selector {
+    flex-direction: column;
+    align-items: center;
+   }
+
   .album-card {
-    width: 160px;
+    width: 100%;
+    max-width: 350px;
   }
   
   .album-card img {
