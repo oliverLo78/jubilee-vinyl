@@ -1,10 +1,19 @@
 import React from 'react';
 import { Button, Container, Row, Col } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
+import AlbumSelector from '../components/AlbumSelector/index';
 import './Home.css';
 
 const Home = () => {
-   return (
+    const [showAlbumSelector, setShowAlbumSelector] = useState(false);
+
+    const handleAlbumSelect = (album) => {
+      console.log('Selected album:', album);
+      // Navigate to vinyl creation page
+      // navigate('/create-vinyl', { state: { album } });
+    };
+
+  return (
     <div className="home-container">
       {/* Hero Section */}
       <div className="hero-section position-relative">
@@ -14,6 +23,15 @@ const Home = () => {
           alt='Vinyl record and equipment'
           style={{ display: 'flex' }}
         />
+         <Button 
+          variant="warning" 
+          size="lg" 
+          onClick={() => setShowAlbumSelector(true)}
+          className="mt-4"
+        >
+          🎵 Browse Playlists & Create Vinyl
+        </Button>
+
         <div className="hero-overlay position-absolute top-50 start-50 translate-middle text-center text-white">
           <h1 className='hero-title display-4 fw-bold mb-4'>
             Design Your Custom Vinyl Today!
@@ -23,7 +41,15 @@ const Home = () => {
               Get Started
             </Button>
           </LinkContainer>
-        </div>
+          {/* Album Selector Modal */}
+          {showAlbumSelector && (
+            <div className="album-selector-modal">
+              <AlbumSelector 
+                onAlbumSelect={handleAlbumSelect}
+                onClose={() => setShowAlbumSelector(false)}
+              />
+            </div>
+          )}
       </div>
       
       {/* About Section */}
@@ -76,7 +102,7 @@ const Home = () => {
         </Row>
       </Container>
     </div>
-  );
-};
+  </div>
+)};
 
 export default Home;

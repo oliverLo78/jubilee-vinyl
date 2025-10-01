@@ -8,3 +8,30 @@
 .flex-grow-1 {
   flex-grow: 1;
 }
+
+.album-selector-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.9);
+  z-index: 1000;
+  overflow-y: auto;
+}
+
+/* Optional: A cool entrance animation */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.album-selector-container {
+  animation: slideUp 0.5s ease-out;
+}
