@@ -79,12 +79,12 @@ const AlbumSelector = ({ onAlbumSelect, onClose }) => {
   };
 
    return (
-    <Container className="album-selector-container">
+    <Container className="album-selector">
       <Row>
         <Col>
           <div className="selector-header">
             <h3>Select a Playlist</h3>
-            <p>Choose a playlist to create vinyl from</p>
+            <p className='description'>Choose a playlist to create vinyl from</p>
             {onClose && (
               <Button variant="outline-secondary" onClick={onClose} className="close-btn">
                 ×

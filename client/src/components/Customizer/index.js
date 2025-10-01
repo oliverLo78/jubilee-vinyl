@@ -20,6 +20,66 @@ const VINYL_SIZE = 400;
 const VINYL_CENTER = VINYL_SIZE / 2;
 const VINYL_RADIUS = VINYL_SIZE / 2 - 20;
 
+  // Add test images array
+  const testImages = [
+    'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=400&fit=crop',
+    'https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=400&h=400&fit=crop',
+    'https://images.unsplash.com/photo-1571330735066-03aaa9429d89?w=400&h=400&fit=crop',
+    'https://images.unsplash.com/photo-1508700929628-666bc8bd84ea?w=400&h=400&fit=crop',
+  ];
+
+  // Quick load test image function
+  const loadTestImage = (imageUrl) => {
+    fabric.Image.fromURL(imageUrl, (img) => {
+      const scale = Math.min(
+        (VINYL_RADIUS * 2 - 10) / img.width,
+        (VINYL_RADIUS * 2 - 10) / img.height
+      );
+      
+      img.scale(scale);
+      img.set({
+        left: VINYL_CENTER,
+        top: VINYL_CENTER,
+        originX: 'center',
+        originY: 'center',
+        clipPath: new fabric.Circle({
+          radius: VINYL_RADIUS - 5,
+          originX: 'center',
+          originY: 'center',
+        }),
+      });
+
+      fabricCanvasRef.current.add(img);
+      fabricCanvasRef.current.renderAll();
+    });
+  };
+
+  // Quick add sample text
+  const addSampleText = (text, color = '#ffffff') => {
+    const textObj = new fabric.IText(text, {
+      left: VINYL_CENTER,
+      top: VINYL_CENTER,
+      fontFamily: 'Arial',
+      fill: color,
+      fontSize: 24,
+      originX: 'center',
+      originY: 'center',
+    });
+
+    fabricCanvasRef.current.add(textObj);
+    fabricCanvasRef.current.renderAll();
+  };
+
+// Mock save function for testing
+const mockSaveDesign = () => {
+  setLoading(true);
+  setTimeout(() => {
+    setMessage('✅ Design saved successfully! (Mock)');
+    setLoading(false);
+  }, 1500);
+};
+
+
 useEffect(() => {
   // Initialize the Fabric canvas
   const canvas = new fabric.Canvas(canvasRef.current, {
@@ -184,6 +244,13 @@ const handleSaveDesign = async () => {
 
 return (
     <Container className="customizer-container">
+      {/* TEST MODE BANNER */}
+      {testMode && (
+        <Alert variant="warning" className="mb-3">
+          <strong>TEST MODE ACTIVE</strong> - Using mock save function
+        </Alert>
+      )}
+
       <Row>
         <Col lg={8}>
           <Card className="canvas-card">
@@ -213,7 +280,56 @@ return (
         </Col>
 
         <Col lg={4}>
-          {/* Image Upload */}
+           {/* QUICK TEST IMAGES */}
+          {testMode && (
+            <Card className="mb-3">
+              <Card.Header>Quick Test Images</Card.Header>
+              <Card.Body>
+                <div className="test-images-grid">
+                  {testImages.map((imageUrl, index) => (
+                    <img
+                      key={index}
+                      src={imageUrl}
+                      alt={`Test ${index + 1}`}
+                      className="test-image-thumb"
+                      onClick={() => loadTestImage(imageUrl)}
+                      style={{
+                        width: '60px',
+                        height: '60px',
+                        objectFit: 'cover',
+                        cursor: 'pointer',
+                        margin: '2px',
+                        border: '2px solid #ddd',
+                        borderRadius: '5px'
+                      }}
+                    />
+                  ))}
+                </div>
+              </Card.Body>
+            </Card>
+          )}
+
+           {/* QUICK TEXT BUTTONS */}
+          {testMode && (
+            <Card className="mb-3">
+              <Card.Header>Quick Text Samples</Card.Header>
+              <Card.Body>
+                <div className="d-grid gap-2">
+                  <Button variant="outline-dark" size="sm" onClick={() => addSampleText('MY FAVORITE ALBUM', '#ffffff')}>
+                    Add White Text
+                  </Button>
+                  <Button variant="outline-dark" size="sm" onClick={() => addSampleText('SUMMER HITS', '#ffd700')}>
+                    Add Gold Text
+                  </Button>
+                  <Button variant="outline-dark" size="sm" onClick={() => addSampleText('BEST OF 2024', '#ff6b6b')}>
+                    Add Red Text
+                  </Button>
+                </div>
+              </Card.Body>
+            </Card>
+          )}
+
+          {/* Original Image Upload Card */}
           <Card className="mb-3">
             <Card.Header>Upload Image</Card.Header>
             <Card.Body>
@@ -227,7 +343,7 @@ return (
             </Card.Body>
           </Card>
 
-          {/* Text Tools */}
+          {/* Text Tools Card*/}
           <Card className="mb-3">
             <Card.Header>Add Text</Card.Header>
             <Card.Body>
@@ -274,7 +390,7 @@ return (
             </Card.Body>
           </Card>
 
-          {/* Save Design */}
+          {/* Save Design Card */}
           <Card>
             <Card.Header>Save Design</Card.Header>
             <Card.Body>

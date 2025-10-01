@@ -20,12 +20,14 @@ import About from './pages/About';
 import Profile from './pages/Profile';
 import SearchSpotify from './components/SearchSpotify'; // Added missing import
 import CreateVinyl from './components/VinylOrderForm'; // Added missing import
+import TestCustomizer from './pages/TestCustomizer';
 
 // Components
 import Header from './components/Header';
 import Footer from './components/Footer';
 import SpotifyCallback from './components/SpotifyCallback';
 import Customizer from './components/Customizer';
+
 
 // Utils
 import { SpotifyProvider } from './utils/SpotifyContext';
@@ -92,6 +94,7 @@ function App() {
                 <Route path="/about" element={<About />} />
                 <Route path="/spotify-callback" element={<SpotifyCallback />} />
                 <Route path="/customize/:trackId?" element={<CustomizerPage />} />
+                <Route path="/test-customizer" element={<TestCustomizer />} />
                 <Route path="*" element={<NotFound />} />
                 {/* <Route path="/create-vinyl" element={<CreateVinyl />} />
                 <Route path="/create-vinyl/:trackId" element={<CreateVinyl />} />
