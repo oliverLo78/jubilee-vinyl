@@ -1,0 +1,175 @@
+.album-selector-container {
+  padding: 2rem 0;
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  color: white;
+  min-height: 100vh;
+}
+
+.selector-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.selector-header h3 {
+  color: #ffd700;
+  margin-bottom: 0.5rem;
+}
+
+.close-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.scroll-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin: 0 -1rem;
+}
+
+albums-scroll {
+  display: flex;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding: 1rem 0;
+  gap: 1.5rem;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+}
+
+.albums-scroll::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}
+
+.album-card {
+  width: 200px;
+  flex-shrink: 0;
+  background: #2c3e50;
+  border: 2px solid transparent;
+  border-radius: 15px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  color: white;
+}
+
+.album-card:hover {
+  transform: translateY(-5px);
+  border-color: #ffd700;
+  box-shadow: 0 10px 25px rgba(255, 215, 0, 0.3);
+}
+
+.album-card.selected {
+  border-color: #ffd700;
+  background: #34495e;
+  transform: scale(1.05);
+}
+
+.album-card img {
+  height: 200px;
+  object-fit: cover;
+  border-radius: 13px 13px 0 0;
+}
+
+.album-title {
+  font-size: 1rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.album-artist {
+  color: #bdc3c7;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+
+.album-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: #95a5a6;
+}
+
+.album-type {
+  text-transform: capitalize;
+  background: #ffd700;
+  color: #2c3e50;
+  padding: 0.2rem 0.5rem;
+  border-radius: 12px;
+  font-weight: bold;
+}
+
+.scroll-btn {
+  position: absolute;
+  z-index: 10;
+  background: rgba(255, 215, 0, 0.9) !important;
+  border: none;
+  color: #2c3e50 !important;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.scroll-btn:hover {
+  transform: scale(1.1);
+  background: #ffd700 !important;
+}
+
+.scroll-btn.left {
+  left: 10px;
+}
+
+.scroll-btn.right {
+  right: 10px;
+}
+
+.selection-confirmation {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 2rem;
+  border-radius: 15px;
+  border: 2px solid #ffd700;
+}
+
+.selection-confirmation h5 {
+  color: #ffd700;
+  margin-bottom: 0.5rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .album-card {
+    width: 160px;
+  }
+  
+  .album-card img {
+    height: 160px;
+  }
+  
+  .scroll-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+  }
+  
+  .scroll-btn.left {
+    left: 5px;
+  }
+  
+  .scroll-btn.right {
+    right: 5px;
+  }
+}
