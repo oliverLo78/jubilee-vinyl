@@ -16,12 +16,12 @@ const Home = () => {
   return (
     <div className="home-container">
       {/* Hero Section */}
-      <div className="hero-section position-relative">
+      <div className="hero-section">
         <img 
           className='hero-image w-100' 
           src='/pexels-matthias-groeneveld-3916058.jpg' 
           alt='Vinyl record and equipment'
-          style={{ display: 'flex' }}
+          margin='auto'
         />
          <Button 
           variant="warning" 

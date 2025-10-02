@@ -89,16 +89,10 @@ function App() {
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/search" element={<SearchSpotify />} />
-                <Route path="/order/:orderId" element={<VinylOrderDetail />} />
-                <Route path="/vinyl-order" element={<VinylOrderForm />} />
+                <Route path="/customize" element={<CustomizerPage />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/spotify-callback" element={<SpotifyCallback />} />
-                <Route path="/customize/:trackId?" element={<CustomizerPage />} />
-                <Route path="/test-customizer" element={<TestCustomizer />} />
                 <Route path="*" element={<NotFound />} />
-                {/* <Route path="/create-vinyl" element={<CreateVinyl />} />
-                <Route path="/create-vinyl/:trackId" element={<CreateVinyl />} />
-                <Route path="/orders" element={<OrderHistory />} /> */}
               </Routes>
             </div>  
             <Footer />
