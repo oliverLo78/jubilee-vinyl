@@ -20,7 +20,7 @@ import About from './pages/About';
 import Profile from './pages/Profile';
 import SearchSpotify from './components/SearchSpotify'; // Added missing import
 import CreateVinyl from './components/VinylOrderForm'; // Added missing import
-import TestCustomizer from './pages/TestCustomizer';
+import TestCustomizer from './pages/CustomizerPage';
 
 // Components
 import Header from './components/Header';

@@ -1,4 +1,5 @@
 import React,{ useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import { Button, Container, Row, Col } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import AlbumSelector from '../components/AlbumSelector/index';
@@ -6,12 +7,29 @@ import './Home.css';
 
 const Home = () => {
     const [showAlbumSelector, setShowAlbumSelector] = useState(false);
+    const navigate = useNavigate();
 
     const handleAlbumSelect = (album) => {
       console.log('Selected album:', album);
       // Navigate to vinyl creation page
       // navigate('/create-vinyl', { state: { album } });
     };
+
+    const handleGetStarted = () => {
+    navigate('/search');
+    };
+
+    const handleDemoCustomizer = () => {
+    navigate('/customize', { 
+      state: { 
+        trackData: {
+          name: "Demo Track",
+          artist: "Demo Artist",
+          album: "Demo Album"
+        }
+      }
+    });
+  };
 
   return (
     <div className="home-container">
@@ -23,6 +41,17 @@ const Home = () => {
           alt='Vinyl record and equipment'
           margin='auto'
         />
+          <h1>Create Custom Vinyl Records</h1>
+          <p>Turn your favorite Spotify tracks into physical vinyl memories</p>
+
+        <Button 
+        variant="warning" 
+        size="lg" 
+        onClick={handleGetStarted}
+        >
+          🎵 Start Creating Now
+        </Button>
+
          <Button 
           variant="warning" 
           size="lg" 
@@ -30,6 +59,15 @@ const Home = () => {
           className="mt-4"
         >
           🎵 Browse Playlists & Create Vinyl
+        </Button>
+
+         <Button 
+         variant="outline-light"
+        size="lg" 
+        className="ms-3" 
+        onClick={handleDemoCustomizer}
+        >
+          🎨 Try Customizer Demo
         </Button>
 
         <div className="hero-overlay position-absolute top-50 start-50 translate-middle text-center text-white">
@@ -41,6 +79,7 @@ const Home = () => {
               Get Started
             </Button>
           </LinkContainer>
+
           {/* Album Selector Modal */}
           {showAlbumSelector && (
             <div className="album-selector-modal">
@@ -81,23 +120,23 @@ const Home = () => {
         </Row>
       </Container>
 
-      {/* Features Section */}
-      <Container fluid className='bg-light py-5'>
-        <Row className='text-center'>
-          <Col md={4} className='mb-4'>
-            <div className='feature-icon mb-3'>🎵</div>
-            <h4>Spotify Integration</h4>
-            <p>Create vinyl from your favorite Spotify tracks instantly</p>
+       {/* Features Section */}
+      <Container className="my-5">
+        <Row>
+          <Col md={4} className="text-center mb-4">
+            <div className="feature-icon">🔍</div>
+            <h4>Search Spotify</h4>
+            <p>Find your favorite tracks and playlists</p>
           </Col>
-          <Col md={4} className='mb-4'>
-            <div className='feature-icon mb-3'>🎨</div>
-            <h4>Custom Designs</h4>
-            <p>Choose colors, sizes, and create unique vinyl artwork</p>
+          <Col md={4} className="text-center mb-4">
+            <div className="feature-icon">🎨</div>
+            <h4>Customize Design</h4>
+            <p>Add images, text, and create unique artwork</p>
           </Col>
-          <Col md={4} className='mb-4'>
-            <div className='feature-icon mb-3'>🚚</div>
-            <h4>Fast Shipping</h4>
-            <p>Get your custom vinyl delivered to your doorstep</p>
+          <Col md={4} className="text-center mb-4">
+            <div className="feature-icon">📦</div>
+            <h4>Order Vinyl</h4>
+            <p>Get your custom vinyl delivered</p>
           </Col>
         </Row>
       </Container>

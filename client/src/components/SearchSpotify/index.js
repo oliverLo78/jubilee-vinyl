@@ -60,6 +60,12 @@ function SearchSpotify() {
     );
   }
 
+  const handleCreateVinyl = (track) => {
+    navigate('/customize', { 
+      state: { trackData: track }
+    });
+  };
+
   const tracks = data?.searchSpotifyTracks?.tracks?.items || [];
 
   return (
@@ -157,6 +163,7 @@ function SearchSpotify() {
                               }
                             }
                           });
+                          handleCreateVinyl(track)
                         }}
                       >
                         Create Vinyl
