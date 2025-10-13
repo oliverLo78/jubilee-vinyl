@@ -14,7 +14,7 @@ import Home from './pages/Home';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
 import Profile from './pages/Profile';
-// import SearchSpotify from './pages/SearchSpotify';
+import SearchSpotify from './pages/SearchSpotify';
 import CustomizerPage from './pages/CustomizerPage';
 import About from './pages/About';
 import NotFound from './pages/NotFound';

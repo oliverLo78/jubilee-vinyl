@@ -1,0 +1,58 @@
+.search-spotify-container {
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  min-height: 100vh;
+  color: white;
+}
+
+.search-header h1 {
+  color: #ffd700;
+  margin-bottom: 1rem;
+}
+
+.search-card {
+  background: rgba(255, 255, 255, 0.1) !important;
+  border: 1px solid rgba(255, 215, 0, 0.3) !important;
+  backdrop-filter: blur(10px);
+}
+
+.track-card {
+  background: #2c3e50 !important;
+  border: 2px solid transparent !important;
+  transition: all 0.3s ease;
+  color: white;
+}
+
+.track-card:hover {
+  border-color: #ffd700 !important;
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(255, 215, 0, 0.3);
+}
+
+.track-title {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.track-artist {
+  font-size: 0.9rem;
+}
+
+.track-album {
+  font-size: 0.8rem;
+}
+
+.connection-status {
+  font-size: 1.1rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .search-header h1 {
+    font-size: 1.8rem;
+  }
+  
+  .track-card {
+    margin-bottom: 1rem;
+  }
+}
