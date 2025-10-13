@@ -25,6 +25,7 @@
     "helmet": "^8.1.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.13.8",
+    "node-fetch": "^3.3.2",
     "qs": "^6.14.0"
   },
   "devDependencies": {
