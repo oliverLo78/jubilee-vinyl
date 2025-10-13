@@ -11,8 +11,15 @@ const Home = () => {
 
     const handleAlbumSelect = (album) => {
       console.log('Selected album:', album);
+
       // Navigate to vinyl creation page
-      // navigate('/create-vinyl', { state: { album } });
+      const handleCreateVinyl = (track) => {
+        navigate('/customize', { 
+          state: { trackData: track }
+      });
+    };
+
+    // navigate('/create-vinyl', { state: { album } });
     };
 
     const handleGetStarted = () => {
@@ -35,21 +42,23 @@ const Home = () => {
     <div className="home-container">
       {/* Hero Section */}
       <div className="hero-section">
-        <img 
-          className='hero-image w-100' 
-          src='/pexels-matthias-groeneveld-3916058.jpg' 
-          alt='Vinyl record and equipment'
-          margin='auto'
-        />
           <h1>Create Custom Vinyl Records</h1>
           <p>Turn your favorite Spotify tracks into physical vinyl memories</p>
-
         <Button 
         variant="warning" 
         size="lg" 
         onClick={handleGetStarted}
         >
           🎵 Start Creating Now
+        </Button>
+
+        <Button 
+         variant="outline-light"
+        size="lg" 
+        className="ms-3" 
+        onClick={handleDemoCustomizer}
+        >
+          🎨 Try Customizer Demo
         </Button>
 
          <Button 
@@ -60,16 +69,12 @@ const Home = () => {
         >
           🎵 Browse Playlists & Create Vinyl
         </Button>
-
-         <Button 
-         variant="outline-light"
-        size="lg" 
-        className="ms-3" 
-        onClick={handleDemoCustomizer}
-        >
-          🎨 Try Customizer Demo
+         
+        <Button onClick={() => handleCreateVinyl(track)}>
+          💽 Create Vinyl
         </Button>
 
+      
         <div className="hero-overlay position-absolute top-50 start-50 translate-middle text-center text-white">
           <h1 className='hero-title display-4 fw-bold mb-4'>
             Design Your Custom Vinyl Today!

@@ -7,27 +7,24 @@ import {
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 // Pages
 import Home from './pages/Home';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
-import VinylOrderForm from './pages/VinylOrder'; // Renamed for clarity
-import OrderHistory from './pages/OrderHistory';
-import VinylOrderDetail from './pages/VinylOrderDetail'; // Renamed from SingleAlbum
-import NotFound from './pages/NotFound';
-import About from './pages/About';
 import Profile from './pages/Profile';
-import SearchSpotify from './components/SearchSpotify'; // Added missing import
-import CreateVinyl from './components/VinylOrderForm'; // Added missing import
-import TestCustomizer from './pages/CustomizerPage';
+// import SearchSpotify from './pages/SearchSpotify';
+import CustomizerPage from './pages/CustomizerPage';
+import About from './pages/About';
+import NotFound from './pages/NotFound';
+import SpotifyCallback from './components/SpotifyCallback';
+
 
 // Components
 import Header from './components/Header';
 import Footer from './components/Footer';
-import SpotifyCallback from './components/SpotifyCallback';
 import Customizer from './components/Customizer';
-
 
 // Utils
 import { SpotifyProvider } from './utils/SpotifyContext';
@@ -64,42 +61,32 @@ const client = new ApolloClient({
   },
 });
 
-const CustomizerPage = () => {
-  const location = useLocation();
-  const trackData = location.state?.trackData;
-
-  return (
-    <div>
-      <Customizer trackData={trackData} />
-    </div>
-  );
-};
-
 function App() {
   return (
     <ApolloProvider client={client}>
-      <SpotifyProvider>
-        <Router>
-          <div className="flex-column justify-flex-start min-100-vh">
-            <Header />
-            <div className="container flex-grow 1">
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/signup" element={<Signup />} />
-                <Route path="/profile" element={<Profile />} />
-                <Route path="/search" element={<SearchSpotify />} />
-                <Route path="/customize" element={<CustomizerPage />} />
-                <Route path="/about" element={<About />} />
-                <Route path="/spotify-callback" element={<SpotifyCallback />} />
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </div>  
-            <Footer />
+    <SpotifyProvider>
+      <Router>
+        {/* Everything inside the Router can now use React Router hooks */}
+        <Header />
+        <div className="flex-column justify-flex-start min-100-vh">
+          <div className="container flex-grow 1">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<Signup />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/search" element={<SearchSpotify />} />
+              <Route path="/customize" element={<CustomizerPage />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/spotify-callback" element={<SpotifyCallback />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
           </div>
-        </Router>
-      </SpotifyProvider>
-    </ApolloProvider>
+          <Footer />
+        </div>
+      </Router>
+    </SpotifyProvider>
+  </ApolloProvider>
   );
 }
 
