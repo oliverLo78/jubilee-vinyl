@@ -26,48 +26,68 @@ app.use(require('compression')());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
+// Serve static assets - ALWAYS serve static files, not just in production
+const buildPath = path.join(__dirname, '../client/build');
+console.log('Looking for build directory at:', buildPath);
+const hasBuild = fs.existsSync(buildPath);
+
+if (hasBuild) {
+  console.log('✅ Build directory found, serving static files...');
+
+  // Serve static files from React build
+  app.use(express.static(buildPath, {
+    maxAge: '1d',
+    setHeaders: (res, filePath) => {
+      // Ensure proper MIME types
+      if (filePath.endsWith('.css')) {
+        res.setHeader('Content-Type', 'text/css');
+      }
+      if (filePath.endsWith('.js')) {
+        res.setHeader('Content-Type', 'application/javascript');
+      }
+    }
+  }));
+} else {
+  console.log('❌ Build directory not found at:', buildPath);
+  console.log('⚠️  Running in API-only mode (no frontend served)');
+
+  // Basic route for root when no build directory exists
+  app.get('/', (req, res) => {
+    res.json({
+      message: 'API Server is running',
+      graphql: `http://localhost:${PORT}/graphql`,
+      note: 'React app not built - run "cd client && npm run build"'
+    });
+  });
+}
+
 // Use routes
 app.use(routes);
 
-// Test routes
+// Test route to verify Express is working
 app.get('/api/test', (req, res) => {
   res.json({ message: 'Express server is working!', timestamp: new Date() });
 });
 
-// SERVE STATIC FILES - SIMPLIFIED AND CORRECT
-const buildPath = path.join(__dirname, '../client/build');
+app.get('/api/graphql-test', (req, res) => {
+  res.json({ message: 'GraphQL endpoint is available at /graphql' });
+});
 
-if (fs.existsSync(buildPath)) {
-  console.log('✅ Build directory found:', buildPath);
-  
-  // CRITICAL FIX: Serve static files from the build directory
-  // This will handle /static/css/main.42249450.css automatically
-  app.use(express.static(buildPath));
-  
-  // Debug middleware to log static file requests
-  app.use('/static', (req, res, next) => {
-    console.log('Static file request:', req.path);
-    const filePath = path.join(buildPath, 'static', req.path);
-    console.log('Looking for file at:', filePath);
-    console.log('File exists:', fs.existsSync(filePath));
-    next();
-  });
-
-  // Serve index.html for all non-API routes
+if (hasBuild) {
+  // Serve index.html for all other routes (SPA support)
   app.get('*', (req, res) => {
-    // Don't handle API routes
-    if (req.path.startsWith('/api/') || req.path.startsWith('/graphql')) {
-      return res.status(404).json({ error: 'API route not found' });
+    // Don't serve HTML for static asset requests
+    if (req.path.startsWith('/static/') ||
+        req.path.endsWith('.css') ||
+        req.path.endsWith('.js') ||
+        req.path.endsWith('.json') ||
+        req.path.endsWith('.ico')) {
+      // Let express.static handle these
+      return res.status(404).send('Static file not found');
     }
     
     // Serve React app
     res.sendFile(path.join(buildPath, 'index.html'));
-  });
-  
-} else {
-  console.log('❌ Build directory not found');
-  app.get('/', (req, res) => {
-    res.json({ message: 'API Server - Run "cd client && npm run build"' });
   });
 }
 
@@ -107,4 +127,6 @@ const startApolloServer = async () => {
   }
 };
 
-startApolloServer();
+// Call the async function to start the server
+startApolloServer(typeDefs, resolvers);
+
