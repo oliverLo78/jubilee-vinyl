@@ -53,28 +53,14 @@ type VinylOrder {
     zipCode: String
     country: String
   }
-  
-  # Add the Track type definition
-  type Track {
-    id: ID!
-    name: String!
-    artists: [String]
-    album: String
-    duration: Int
-    previewUrl: String
-    imageUrl: String
-    spotifyUrl: String
-  }
 
   type SpotifyTrack {
     id: String!
     name: String!
     artists: [SpotifyArtist]
     album: SpotifyAlbum
-    duration_ms: Int
     preview_url: String
-    imageUrl: String
-    spotifyUrl: String
+    duration_ms: Int
   }
 
   type SpotifyArtist {
@@ -97,7 +83,6 @@ type VinylOrder {
   type Query {
     me: User
     getUser(id: ID!): User
-    searchSpotifyTracks(query: String!, type: String = "track", limit: Int = 20): [Track]  
     getOrders: [VinylOrder]
     getOrder(id: ID!): VinylOrder
     searchTracks(query: String!): [SpotifyTrack]
@@ -128,21 +113,7 @@ type VinylOrder {
     shippingAddress: ShippingAddressInput
   }
 
-  input VinylOrderInput {
-    trackId: String!
-    trackName: String!
-    artistName: String!
-    albumName: String
-    albumImage: String
-    previewUrl: String
-    durationMs: Int
-    vinylColor: String!
-    vinylSize: String!
-    price: Float!
-    shippingAddress: ShippingAddressInput
-}
-
-  input TrackInput {
+input TrackInput {
     trackId: String!
     trackName: String!
     artistName: String!
@@ -150,11 +121,12 @@ type VinylOrder {
     albumImage: String
   }
 
-  input ShippingAddressInput {
-    street: String!
-    city: String!
-    state: String!
-    zipCode: String!
+    input ShippingAddressInput {
+    street: String
+    city: String
+    state: String
+    zipCode: String
+    country: String
   }
 `;
 
